@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <canvas id="canvas" width="600" height="600"></canvas>
+        <canvas id="lyricsCanvas" width="650" height="200"></canvas>
+        <div id="audio-player">
+            <audio id="audio" src="https://storage.googleapis.com/ikara-storage/tmp/beat.mp3" type="audio/mpeg"></audio>
+            <button id="play-pause-button" style="background: none; border: none;"><i id="btn-icon" class="fa-solid fa-play"></i></button>
+            <label id="time">test</label>
+            <input type="range" id="progress" min="0" max="100" value="0">
+        </div>
+    </div>
+    <script src="handle.js"></script>
+</body>
+</html>

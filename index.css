@@ -1,0 +1,34 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+    background: linear-gradient(#250b3d, #130023);
+    height: 100vh;
+    width: 100%;
+}
+canvas{
+    width: 100%;
+    height: 65vh;
+    display: block;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#lyricsCanvas{
+    margin-left: 0;
+    height: 25vh;
+}
+#play-pause-button{
+    background: none;
+    border: none;
+    color:#fff;
+}
+#progress{
+    width: 70%;
+}
+#time{
+    color: #fff;
+    width: 5%;
+}
