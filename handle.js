@@ -97,22 +97,36 @@ const drawLyrics = () => {
   for (let i = 0; i < currentParams.length; i++) {
     const currentParam = currentParams[i];
     let width = 20;
-    if(currentTime >= currentParam[0].start){
-      const gradient = (currentTime - currentParam[0].start) / (currentParam[currentParam.length - 1].start - currentParam[0].start)
-      const paramWidth = getWidth(currentParam)
-      let gradientText = ctx.createLinearGradient(20, 30 + 30*i, paramWidth + 20, 30 + 30*i);
-      gradientText.addColorStop(0, 'blue');
-      gradientText.addColorStop(gradient >= 0.9 ? 1 : gradient , 'blue');
-      if(gradient <= 0.9)
-        gradientText.addColorStop(gradient + 0.01 , '#fff');
-      gradientText.addColorStop(1, '#fff');
-      ctxLyrics.fillStyle = gradientText;
-    }else{
-      ctxLyrics.fillStyle = '#fff';
-    }
     for (let j = 0; j < currentParam.length; j++) {
       const word = currentParam[j];
-      let textWidth = ctxLyrics.measureText(word.text).width
+      const textWidth = ctxLyrics.measureText(word.text).width
+      if (word.start <=  currentTime){
+        const gradientColor = ctx.createLinearGradient(width, 30 + 30*i, width + textWidth, 30 + 30*i);
+        let time;
+        if(j === currentParam.length -1){
+          time =( 
+            (
+              currentParams[i+1] 
+              && currentParams[i+1][0].start - word.start <= 1 
+            ) ?
+            currentParams[i+1] && currentParams[i+1][0].start - word.start : 
+            1
+          );
+        }else{
+          time = currentParam[j+1].start - word.start;
+        }
+        let percentGradient = ((currentTime - word.start)/ time);
+        percentGradient = percentGradient <= 1 ? percentGradient : 1;
+        gradientColor.addColorStop(0, 'blue');
+        gradientColor.addColorStop(percentGradient, 'blue');
+        if(percentGradient <= 0.99){
+          gradientColor.addColorStop(percentGradient + 0.01, '#fff')
+        }
+        gradientColor.addColorStop(1, '#fff');
+        ctxLyrics.fillStyle = gradientColor;
+      }else{
+        ctxLyrics.fillStyle = '#fff';
+      }
       ctxLyrics.fillText(word.text, width, 30 + 30*i);
       width += textWidth + 10;
     }
